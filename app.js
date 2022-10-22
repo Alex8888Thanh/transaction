@@ -5,9 +5,9 @@ var bodyParser = require('body-parser');
 var app = express();
 app.use(bodyParser.json());
 app.post('/json', function(request, response){
-    console.log(request.body);      // your JSON
+    console.log(request.body);      // JSON
     var jsonRequest = request.body;
-
+	//Calculates
   	var jsonObj = JSON.parse(jsonRequest);
 	var data = {}
     	for(let i = 0;i<jsonObj.length;i++){
@@ -30,7 +30,7 @@ app.post('/json', function(request, response){
     	let jsonOkObj = [JSON.parse(data)] // without brackets it reverts an error
     	jsonOkObj.push(data)
     	let outputData = JSON.stringify(jsonOkObj, null, 2);
-
+	//Calculates
     response.send(outputData);
 });
 app.listen(3000);
