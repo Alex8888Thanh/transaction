@@ -8,8 +8,8 @@ app.post('/json', function(request, response){
     console.log(request.body);      // your JSON
     var jsonRequest = request.body;
 
-  	  var jsonObj = JSON.parse(jsonRequest);
-	   	var data = {}
+  	var jsonObj = JSON.parse(jsonRequest);
+	var data = {}
     	for(let i = 0;i<jsonObj.length;i++){
       	    let balance = 0
       	    let isValid = false
@@ -26,7 +26,7 @@ app.post('/json', function(request, response){
                 "errorReason": null
       	    }
       	    data.push(obj)
-      }
+      	}
     	let jsonOkObj = [JSON.parse(data)] // without brackets it reverts an error
     	jsonOkObj.push(data)
     	let outputData = JSON.stringify(jsonOkObj, null, 2);
