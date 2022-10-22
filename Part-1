@@ -1,0 +1,30 @@
+function writeToJson(path: string, data: any, rewrite: boolean = false)
+{
+    let inputData: any = fs.readFileSync(path)
+    if(inputData.length == 0 || rewrite == true)
+    {
+        fs.writeFileSync(path, JSON.stringify(data, null, 4))
+        return
+    }
+    var data = {}
+    for(let i = 0;i<inputData.length;i++){
+      let balance: number = 0
+      let isValid: boolean = false
+      for(let j = 0;j<inputData[i].transformations[j].length;j++){
+        balance+=inputData[i].transformations[j].qty*inputData[i].transformations[j].size
+      }
+      if(balance==0){
+        isValid=true
+      }
+      var obj = {
+        inputData[i],
+        "balance": balance,
+        "isValid": isValid,
+        "errorReason": null
+      }
+      data.push(obj)
+    }
+    let json_obj: any = [JSON.parse(data)] // without brackets it reverts an error
+    json_obj.push(data)
+    fs.writeFileSync(path, JSON.stringify(json_obj, null, 4))
+}
