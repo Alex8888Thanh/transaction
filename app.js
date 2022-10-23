@@ -13,12 +13,15 @@ app.post('/jsons', function(request, response){
     	for(let i = 0;i<jsonObj.length;i++){
       	    let balance = 0
       	    let isValid = false
-      	    for(let j = 0;j<jsonObj[i].transformations[j].length;j++){
-                balance+=jsonObj[i].transformations[j].qty*jsonObj[i].transformations[j].size
-      	    }
 	    //A source partNum that does not match the child partNums
 	    //Child parts shorter than 3 metres or longer than 12 metres
-	    //Child parts that are not in increments of 0.3 metres within this range (i.e. 3, 3.3, 3.6, ... 11.7, 12)
+	    //Child parts that are not in increments of 0.3 metres within this range (i.e. 3, 3.3, 3.6, ... 11.7, 12)	    
+      	    for(let j = 0;j<jsonObj[i].transformations[j].length;j++){
+                balance+=jsonObj[i].transformations[j].qty*jsonObj[i].transformations[j].size
+		if(jsonObj[i].size<3||jsonObj[i].size>12){
+                    isValid=false
+      	    	}
+      	    }
       	    if(balance==0){
                 isValid=true
       	    }
